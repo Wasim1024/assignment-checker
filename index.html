@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Checker - AI-Powered Evaluation</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <nav class="navigation">
+                <div class="logo">
+                    <span class="logo-icon">📊</span>
+                    <span class="logo-text">Assignment Checker</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#dashboard" class="nav-link active" data-page="dashboard">Dashboard</a></li>
+                    <li><a href="#assignments" class="nav-link" data-page="assignments">Assignments</a></li>
+                    <li><a href="#create" class="nav-link" data-page="create">Create</a></li>
+                    <li><a href="#submissions" class="nav-link" data-page="submissions">Submissions</a></li>
+                    <li><a href="#settings" class="nav-link" data-page="settings">Settings</a></li>
+                </ul>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <section id="dashboard-page" class="page active dashboard-page">
+                <div id="hero-particles" class="particle-background"></div>
+                
+                <div class="dashboard-container">
+                    <!-- Animated Header -->
+                    <div class="hero-section animate-fade-in">
+                        <h1 class="hero-title gradient-text pulse-animation">
+                            Assignment Checker
+                        </h1>
+                        <p class="hero-subtitle breathing-animation">
+                            AI-Powered Evaluation Dashboard
+                        </p>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid animate-stagger">
+                        <div class="stat-card glassmorphism hover-lift">
+                            <div class="stat-icon rotate-animation">📊</div>
+                            <div class="stat-value counter-animation" data-target="0" id="total-assignments">0</div>
+                            <div class="stat-label">Total Assignments</div>
+                        </div>
+                        <div class="stat-card glassmorphism hover-lift">
+                            <div class="stat-icon rotate-animation">📝</div>
+                            <div class="stat-value counter-animation" data-target="0" id="total-submissions">0</div>
+                            <div class="stat-label">Submissions</div>
+                        </div>
+                        <div class="stat-card glassmorphism hover-lift">
+                            <div class="stat-icon rotate-animation">⭐</div>
+                            <div class="stat-value counter-animation" data-target="0" id="average-score">0</div>
+                            <div class="stat-label">Average Score</div>
+                        </div>
+                        <div class="stat-card glassmorphism hover-lift">
+                            <div class="stat-icon rotate-animation">🎯</div>
+                            <div class="stat-value counter-animation" data-target="0" id="completion-rate">0</div>
+                            <div class="stat-label">Completion Rate</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="assignments-section glassmorphism animate-slide-up">
+                        <h2 class="section-title">Recent Activity</h2>
+                        <div id="recent-activity" class="recent-activity-list">
+                            <!-- Dynamic content will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="charts-section">
+                        <div class="chart-container glassmorphism">
+                            <h3>Grade Distribution</h3>
+                            <div id="grade-distribution-chart"></div>
+                        </div>
+                        <div class="chart-container glassmorphism">
+                            <h3>Subject Distribution</h3>
+                            <div id="subject-distribution-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assignments Page -->
+            <section id="assignments-page" class="page">
+                <div class="page-container">
+                    <div class="page-header">
+                        <h2 class="page-title gradient-text">Assignments</h2>
+                        <p class="page-subtitle">Manage your assignments</p>
+                    </div>
+                    
+                    <div id="assignments-list" class="assignments-grid">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submissions Page -->
+            <section id="submissions-page" class="page">
+                <div class="page-container">
+                    <div class="page-header">
+                        <h2 class="page-title gradient-text">Submissions</h2>
+                        <p class="page-subtitle">View and evaluate submissions</p>
+                    </div>
+                    
+                    <div id="submissions-list" class="submissions-grid">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assignment Creator Page -->
+            <section id="create-page" class="page assignment-creator-page">
+                <div class="assignment-creator">
+                    <div class="page-header">
+                        <h2 class="page-title gradient-text">Create New Assignment</h2>
+                        <p class="page-subtitle">Set up evaluation criteria and rubrics</p>
+                    </div>
+                    
+                    <form id="assignment-form" class="assignment-form glassmorphism">
+                        <div class="form-section">
+                            <h3>Assignment Details</h3>
+                            <div class="form-group">
+                                <label for="assignment-title">Assignment Title</label>
+                                <input type="text" id="assignment-title" name="title" required placeholder="Enter assignment title">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="assignment-subject">Subject</label>
+                                    <select id="assignment-subject" name="subject" required>
+                                        <option value="">Select Subject</option>
+                                        <option value="english">English</option>
+                                        <option value="math">Mathematics</option>
+                                        <option value="science">Science</option>
+                                        <option value="history">History</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="assignment-marks">Total Points</label>
+                                    <input type="number" id="assignment-marks" name="totalPoints" min="1" max="1000" value="100" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="assignment-description">Assignment Description</label>
+                                <textarea id="assignment-description" name="description" rows="4" required placeholder="Enter the assignment description..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="assignment-instructions">Instructions</label>
+                                <textarea id="assignment-instructions" name="instructions" rows="4" required placeholder="Enter detailed instructions for students..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="assignment-keywords">Keywords (comma-separated)</label>
+                                <input type="text" id="assignment-keywords" name="keywords" placeholder="keyword1, keyword2, keyword3">
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Evaluation Rubric</h3>
+                            <p class="section-description">Add criteria for evaluating submissions</p>
+                            
+                            <div id="rubric-criteria">
+                                <!-- Dynamic rubric criteria will be added here -->
+                            </div>
+                            
+                            <button type="button" id="add-criterion" class="btn btn-secondary">Add Criterion</button>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="app.navigateToPage('assignments')">Cancel</button>
+                            <button type="submit" class="btn btn-primary animated-button">Create Assignment</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Submission Upload Page -->
+            <section id="upload-page" class="page upload-page">
+                <div class="upload-container">
+                    <div class="page-header">
+                        <h2 class="page-title gradient-text">Submit Assignment</h2>
+                        <p class="page-subtitle">Upload files or paste text for evaluation</p>
+                    </div>
+                    
+                    <form id="submission-form" class="upload-form glassmorphism">
+                        <div class="assignment-selector">
+                            <label for="selected-assignment">Select Assignment</label>
+                            <select id="selected-assignment" name="assignmentId" required>
+                                <option value="">Choose an assignment to submit</option>
+                            </select>
+                        </div>
+                        
+                        <div class="student-info">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="student-name">Student Name</label>
+                                    <input type="text" id="student-name" name="studentName" required placeholder="Enter student name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="student-id">Student ID</label>
+                                    <input type="text" id="student-id" name="studentId" required placeholder="Enter student ID">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-content">
+                                <div class="upload-icon">📁</div>
+                                <p>Drop files here or click to browse</p>
+                                <small>Supports PDF, DOCX, TXT files (Max: 10MB)</small>
+                            </div>
+                            <input type="file" id="file-upload" name="fileData" multiple accept=".pdf,.docx,.txt,.md" hidden>
+                        </div>
+                        
+                        <div class="upload-divider">
+                            <span>OR</span>
+                        </div>
+                        
+                        <div class="text-submission">
+                            <label for="submission-text">Paste Text Submission</label>
+                            <textarea id="submission-text" name="submissionText" rows="12" placeholder="Paste your assignment text here..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('submission-form').reset()">Clear</button>
+                            <button type="submit" class="btn btn-primary animated-button">Submit for Evaluation</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Results Page -->
+            <section id="results-page" class="page results-page">
+                <div class="results-container">
+                    <div class="page-header">
+                        <h2 class="page-title gradient-text">Evaluation Results</h2>
+                        <p class="page-subtitle">AI-powered assignment analysis and feedback</p>
+                    </div>
+                    
+                    <div id="results-content" class="results-content">
+                        <div class="no-results glassmorphism">
+                            <div class="no-results-icon">📊</div>
+                            <h3>No Results Available</h3>
+                            <p>Submit assignments for evaluation to see results here.</p>
+                            <button class="btn btn-primary animated-button" onclick="app.navigateToPage('upload')">Submit Assignment</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section id="settings-page" class="page settings-page">
+                <div class="settings-container">
+                    <div class="page-header">
+                        <h2 class="page-title gradient-text">Settings</h2>
+                        <p class="page-subtitle">Configure API keys and preferences</p>
+                    </div>
+                    
+                    <div class="settings-form glassmorphism">
+                        <form id="settings-form">
+                            <div class="settings-section">
+                                <h3>API Configuration</h3>
+                                <div class="form-group">
+                                    <label for="hf-api-key">Hugging Face API Key</label>
+                                    <div class="api-key-input">
+                                        <input type="password" id="hf-api-key" name="apiKey" placeholder="Enter your Hugging Face API key">
+                                        <button type="button" class="btn-toggle-password" id="toggle-api-key">👁️</button>
+                                    </div>
+                                    <small class="form-help">
+                                        Get your free API key from <a href="https://huggingface.co/settings/tokens" target="_blank">Hugging Face</a>
+                                    </small>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-section">
+                                <h3>Application Preferences</h3>
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="auto-save" name="autoSave" checked>
+                                        <span class="checkmark"></span>
+                                        Auto-save assignments and submissions
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="show-animations" name="showAnimations" checked>
+                                        <span class="checkmark"></span>
+                                        Enable animations and effects
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="theme-select">Theme</label>
+                                    <select id="theme-select" name="theme">
+                                        <option value="dark">Dark</option>
+                                        <option value="light">Light</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-section">
+                                <h3>Data Management</h3>
+                                <div class="data-actions">
+                                    <button type="button" class="btn btn-secondary" onclick="StorageUtils.exportData()">Export Data</button>
+                                    <button type="button" class="btn btn-warning" onclick="app.clearAllData()">Clear All Data</button>
+                                </div>
+                                <div id="storage-info" class="storage-info">
+                                    <!-- Storage information will be displayed here -->
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary animated-button">Save Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay hidden">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p id="loading-text">Processing...</p>
+                <div class="loading-progress">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div id="notification-container" class="notification-container"></div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/utils/storage.js"></script>
+    <script src="js/utils/animations.js"></script>
+    <script src="js/services/huggingface.js"></script>
+    <script src="js/components/particles.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
